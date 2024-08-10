@@ -12,8 +12,6 @@ namespace FIAP.FaseUm.TechChallenge.Api.Filters
             {
                 BadRequestException => StatusCodes.Status400BadRequest,
 
-                UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
-
                 NotFoundException => StatusCodes.Status404NotFound,
 
                 ValidationException => StatusCodes.Status422UnprocessableEntity,
@@ -26,8 +24,11 @@ namespace FIAP.FaseUm.TechChallenge.Api.Filters
                 Title = "Ocorreu um erro",
                 Detail = context.Exception.Message,
                 Type = context.Exception.GetType().Name,
-                Status = statusCode                
-            });
+                Status = statusCode
+            })
+            {
+                StatusCode = statusCode
+            };
         }
     }
 }

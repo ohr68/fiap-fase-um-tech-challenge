@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{E7F0CCC3-B1B9-4A69-BD73-686655E5B71E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Api", "src\FIAP.FaseUm.TechChallenge.Api\FIAP.FaseUm.TechChallenge.Api.csproj", "{554A6218-E6D0-4C1D-A272-91BE26E854E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.Api", "src\FIAP.FaseUm.TechChallenge.Api\FIAP.FaseUm.TechChallenge.Api.csproj", "{554A6218-E6D0-4C1D-A272-91BE26E854E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Application", "src\FIAP.FaseUm.TechChallenge.Application\FIAP.FaseUm.TechChallenge.Application.csproj", "{EDE737F6-5984-4EDA-8248-7D85359B1140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.Application", "src\FIAP.FaseUm.TechChallenge.Application\FIAP.FaseUm.TechChallenge.Application.csproj", "{EDE737F6-5984-4EDA-8248-7D85359B1140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Domain", "src\FIAP.FaseUm.TechChallenge.Domain\FIAP.FaseUm.TechChallenge.Domain.csproj", "{08F5997F-D028-4783-B88B-0772C9FFE04B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.Domain", "src\FIAP.FaseUm.TechChallenge.Domain\FIAP.FaseUm.TechChallenge.Domain.csproj", "{08F5997F-D028-4783-B88B-0772C9FFE04B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - Data", "4.1 - Data", "{A79FE4E2-74B1-4F5D-8EA0-EDFA05F92386}"
 EndProject
@@ -29,11 +29,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.Infra.Data", "src\FIAP.FaseUm.TechChallenge.Infra.Data\FIAP.FaseUm.TechChallenge.Infra.Data.csproj", "{E105F07B-A29D-41A5-911E-4D5CC0401109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Extensions", "src\FIAP.FaseUm.TechChallenge.Extensions\FIAP.FaseUm.TechChallenge.Extensions.csproj", "{3A83B9DD-4AF4-4DB6-A9A6-E5B979742C76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.Extensions", "src\FIAP.FaseUm.TechChallenge.Extensions\FIAP.FaseUm.TechChallenge.Extensions.csproj", "{3A83B9DD-4AF4-4DB6-A9A6-E5B979742C76}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.3 - IoC", "5.3 - IoC", "{1DC89F14-680B-461B-ABA6-E08641B73551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.IoC", "src\FIAP.FaseUm.TechChallenge.IoC\FIAP.FaseUm.TechChallenge.IoC.csproj", "{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FIAP.FaseUm.TechChallenge.IoC", "src\FIAP.FaseUm.TechChallenge.IoC\FIAP.FaseUm.TechChallenge.IoC.csproj", "{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Tests", "6 - Tests", "{EC808001-A156-4F0E-8F4F-14DDA3B2F087}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Tests", "src\FIAP.FaseUm.TechChallenge.Tests\FIAP.FaseUm.TechChallenge.Tests.csproj", "{7EA224C2-5DCA-4975-A879-CD304DC8AEC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,10 @@ Global
 		{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA224C2-5DCA-4975-A879-CD304DC8AEC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA224C2-5DCA-4975-A879-CD304DC8AEC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA224C2-5DCA-4975-A879-CD304DC8AEC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA224C2-5DCA-4975-A879-CD304DC8AEC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,7 @@ Global
 		{3A83B9DD-4AF4-4DB6-A9A6-E5B979742C76} = {70644BF4-3296-41FC-9C63-72F729041B06}
 		{1DC89F14-680B-461B-ABA6-E08641B73551} = {B0A8211E-DF77-49E6-BFF2-9831FCB4EE18}
 		{4CA3B3DB-1E0D-4A7F-BE66-5F917656C36D} = {1DC89F14-680B-461B-ABA6-E08641B73551}
+		{7EA224C2-5DCA-4975-A879-CD304DC8AEC9} = {EC808001-A156-4F0E-8F4F-14DDA3B2F087}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEC60765-1A3F-4DD7-B75D-B85FA7EED3F7}

@@ -4,7 +4,12 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
 {
     public class Email
     {
-        public string Endereco { get; set; }
+        public string? Endereco { get; set; }
+
+        public Email()
+        {
+            
+        }
 
         public Email(string address)
         {

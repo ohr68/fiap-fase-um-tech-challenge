@@ -4,8 +4,12 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
 {
     public class Telefone
     {
-        public string Numero { get; set; }
-        public string Ddd { get; set; }
+        public string? Numero { get; set; }
+        public string? Ddd { get; set; }
+
+        public Telefone()
+        {            
+        }
 
         public Telefone(string telefone)
         {

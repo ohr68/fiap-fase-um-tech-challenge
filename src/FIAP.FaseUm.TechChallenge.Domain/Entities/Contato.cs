@@ -4,9 +4,13 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Entities
 {
     public class Contato : Entity
     {
-        public string Nome { get; set; }
-        public Telefone Telefone { get; set; }
-        public Email Email { get; set; }
+        public string? Nome { get; set; }
+        public Telefone? Telefone { get; set; }
+        public Email? Email { get; set; }
+
+        public Contato()
+        {            
+        }
 
         public Contato(string nome, string telefone, string email)
         {
