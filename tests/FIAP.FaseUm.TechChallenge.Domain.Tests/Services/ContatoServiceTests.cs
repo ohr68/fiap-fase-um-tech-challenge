@@ -31,12 +31,10 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
                 var contatoService = scopedServices.GetRequiredService<IContatoService>();
-                var dbContext = scopedServices.GetRequiredService<TechChallengeFaseUmDbContext>();
                 var contato = _contatoFixture.GerarContatoValido();
 
                 // Act
                 contatoService.CadastrarContato(contato);
-                await dbContext.SaveChangesAsync();
 
                 // Assert
                 var contatoAdicionado = await contatoRepository.GetById(contato.Id);
@@ -56,13 +54,11 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
                 var contatoService = scopedServices.GetRequiredService<IContatoService>();
-                var dbContext = scopedServices.GetRequiredService<TechChallengeFaseUmDbContext>();
                 var contato = _contatoFixture.GerarContatoValido();
                 var contatoExistente = _contatoServiceFixture.ContatoAdicionado;
 
                 // Act
                 await contatoService.AlterarContato(contatoExistente!.Id, contato);
-                await dbContext.SaveChangesAsync();
 
                 // Assert
                 var contatoAlterado = await contatoRepository.GetById(contatoExistente.Id);
@@ -108,12 +104,10 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
                 var contatoService = scopedServices.GetRequiredService<IContatoService>();
-                var dbContext = scopedServices.GetRequiredService<TechChallengeFaseUmDbContext>();
                 var contatoExistente = _contatoServiceFixture.ContatoAdicionado;
 
                 // Act
                 await contatoService.RemoverContato(contatoExistente!.Id);
-                await dbContext.SaveChangesAsync();
 
                 // Assert
                 var contatoRemovido = await contatoRepository.GetById(contatoExistente.Id);

@@ -36,8 +36,10 @@ namespace FIAP.FaseUm.TechChallenge.Application.AppServices
             return contatoCadastro.Adapt<ConsultaContatoDto>();
         }
 
-        public async Task<IEnumerable<ConsultaContatoDto>> ListarContatos(string ddd) => (await contatoService.ListarContatos(ddd)).Adapt<IEnumerable<ConsultaContatoDto>>();
+        public async Task<IEnumerable<ConsultaContatoDto>> ListarContatos(string ddd) 
+            => (await contatoService.ListarContatos(ddd)).Adapt<IEnumerable<ConsultaContatoDto>>();
 
-        public Task RemoverContato(int id) => contatoService.RemoverContato(id);
+        public Task RemoverContato(int id) 
+            => contatoService.RemoverContato(id);
     }
 }

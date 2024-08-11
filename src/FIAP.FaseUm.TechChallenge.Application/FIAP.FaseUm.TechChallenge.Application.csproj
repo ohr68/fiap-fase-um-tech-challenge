@@ -17,6 +17,7 @@
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Custom.Exceptions\FIAP.FaseUm.TechChallenge.Custom.Exceptions.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Domain\FIAP.FaseUm.TechChallenge.Domain.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Extensions\FIAP.FaseUm.TechChallenge.Extensions.csproj" />
+    <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Infra.Data\FIAP.FaseUm.TechChallenge.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
