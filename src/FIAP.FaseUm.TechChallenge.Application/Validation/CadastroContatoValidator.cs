@@ -1,4 +1,5 @@
 ﻿using FIAP.FaseUm.TechChallenge.Application.Dto;
+using FIAP.FaseUm.TechChallenge.Domain.ValueObjects;
 using FluentValidation;
 using System.Text.RegularExpressions;
 
@@ -22,11 +23,8 @@ namespace FIAP.FaseUm.TechChallenge.Application.Validation
                 .WithMessage("O campo telefone deve conter no máximo 55 caracteres.")
                 .Custom((telefone, context) =>
                 {
-                    string padrao = @"^\(?\d{2}\)?\s?\d{5}-?\d{4}$";
-
                     string telefoneLimpo = Regex.Replace(telefone, @"\D", "");
-
-                    if (telefoneLimpo.Length != 11 && !Regex.IsMatch(telefone, padrao))
+                    if (telefoneLimpo.Length != Telefone.LENGTH && !Regex.IsMatch(telefone, Telefone.PATTERN))
                         context.AddFailure("O telefone informado não é válido.");
                 });
 
