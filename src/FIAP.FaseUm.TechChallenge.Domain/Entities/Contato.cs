@@ -23,7 +23,6 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Entities
         public Contato(int id, string nome, string telefone, string email) : this(nome, telefone, email)
         {
             Id = id;
-            Email = new Email(email);
         }
 
         public void Alterar(string nome, Telefone telefone, Email email)
