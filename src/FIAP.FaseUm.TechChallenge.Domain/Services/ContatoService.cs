@@ -11,9 +11,7 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Services
             var contatoBase = await contatoRepository.GetById(id)
                 /*?? throw new NotFoundException($"Contato de id {id} não encontrado")*/;
 
-            contatoBase.Nome = contato.Nome;
-            contatoBase.Telefone = contato.Telefone;
-            contatoBase.Email = contato.Email;
+            contatoBase.Alterar(contato.Nome, contato.Telefone, contato.Email);
 
             contatoRepository.Update(contatoBase);
         }

@@ -15,7 +15,7 @@ namespace FIAP.FaseUm.TechChallenge.Infra.Data.Repositories
 
         public async Task<IEnumerable<T>> GetAll() => await this.entity.AsNoTracking().ToListAsync();
 
-        public async Task<T> GetById(int id) => await this.entity.FirstAsync(x => x.Id == id);
+        public async Task<T?> GetById(int id) => await this.entity.FirstOrDefaultAsync(x => x.Id == id);
 
         public void Update(T entity) => this.entity.Update(entity);       
     }
