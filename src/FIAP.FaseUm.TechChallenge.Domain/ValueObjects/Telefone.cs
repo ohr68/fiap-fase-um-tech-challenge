@@ -22,8 +22,8 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
             if (telefoneLimpo.Length != LENGTH && !Regex.IsMatch(telefone, PATTERN))
                 throw new InvalidDataException("O telefone informado não é válido.");
 
-            Numero = telefone;
             Ddd = ExtrairDdd(telefone);
+            Numero = ExtrairNumero(telefone);
         }
 
         private string ExtrairDdd(string telefone)
@@ -38,6 +38,12 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
             }
 
             return string.Empty; // Retorna uma string vazia se não houver DDD
+        }
+
+        private string ExtrairNumero(string telefone)
+        {
+            string telefoneLimpo = ObterTelefoneLimpo(telefone);
+            return telefoneLimpo.Substring(2);
         }
 
         private string ObterTelefoneLimpo(string telefone)

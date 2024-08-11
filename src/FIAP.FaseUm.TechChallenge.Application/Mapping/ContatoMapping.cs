@@ -15,7 +15,11 @@ namespace FIAP.FaseUm.TechChallenge.Application.Mapping
                 .ConstructUsing(c => new Contato(c.id, c.nome, c.telefone, c.email));
 
             config.NewConfig<Contato, ConsultaContatoDto>()
-                .ConstructUsing(c => new ConsultaContatoDto(c.Id, c.Nome, $"({c.Telefone.Ddd}){c.Telefone.Numero}", c.Email.Endereco));
+                .ConstructUsing(c => new ConsultaContatoDto(
+                    c.Id, 
+                    c.Nome!,
+                    string.Format("({0}) {1}-{2}", c.Telefone!.Ddd, c.Telefone.Numero!.Substring(0, 5), c.Telefone.Numero.Substring(5)),
+                    c.Email!.Endereco!));
         }
     }
 }
