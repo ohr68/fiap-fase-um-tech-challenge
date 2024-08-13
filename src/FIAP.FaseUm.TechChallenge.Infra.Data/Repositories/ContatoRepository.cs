@@ -8,6 +8,13 @@ namespace FIAP.FaseUm.TechChallenge.Infra.Data.Repositories
     public class ContatoRepository(TechChallengeFaseUmDbContext dbContext) : Repository<Contato>(dbContext), IContatoRepository
     {
         public async Task<IEnumerable<Contato>> ListarContatos(string ddd)
-          => await this.entity.AsNoTracking().Where(c => c.Telefone.Ddd == ddd).ToListAsync();
+        {
+            var query = this.entity.AsQueryable();
+
+            if (!string.IsNullOrEmpty(ddd))
+                query = query.Where(c => c.Telefone!.Ddd == ddd);
+
+            return await query.ToListAsync();
+        }
     }
 }

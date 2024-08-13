@@ -2,6 +2,7 @@
 using FIAP.FaseUm.TechChallenge.Application.Interfaces.AppServices;
 using FIAP.FaseUm.TechChallenge.Application.Validation;
 using FluentValidation;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FIAP.FaseUm.TechChallenge.Application.Extensions
@@ -12,7 +13,8 @@ namespace FIAP.FaseUm.TechChallenge.Application.Extensions
         {
             services
                 .AddValidation()
-                .AddScoped<IContatoAppService, ContatoAppService>();
+                .AddScoped<IContatoAppService, ContatoAppService>()
+                .AddMapster();
 
             return services;
         }
@@ -21,6 +23,13 @@ namespace FIAP.FaseUm.TechChallenge.Application.Extensions
         {
             services
                 .AddValidatorsFromAssemblyContaining<CadastroContatoValidator>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddMapster(this IServiceCollection services)
+        {
+            TypeAdapterConfig.GlobalSettings.Scan(typeof(ContatoAppService).Assembly);
 
             return services;
         }

@@ -10,7 +10,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
     {
 
         [HttpGet]
-        public async Task<IActionResult> ListarContatos(string ddd) => Ok(await contatoAppService.ListarContatos(ddd));
+        public async Task<IActionResult> ListarContatos(string? ddd) => Ok(await contatoAppService.ListarContatos(ddd));
 
 
         [HttpPost("cadastrar")]
