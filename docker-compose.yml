@@ -8,7 +8,7 @@ services:
     depends_on:
       - sql-server
     networks:
-      - localprom
+      - fiap_network
     command: sh -c "sleep 10 && dotnet ef database update && dotnet FIAP.FaseUm.TechChallenge.Api.dll"
 
   sql-server:
@@ -20,7 +20,7 @@ services:
     ports:
       - "1433:1433"
     networks:
-      - localprom
+      - fiap_network
     volumes:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
@@ -29,24 +29,46 @@ services:
       retries: 5
 
   prometheus:
+    container_name: prometheus
     image: prom/prometheus
     volumes:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "prometheus_data:/prometheus"
     networks:
-      - localprom
+      - fiap_network
+    command: 
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
     ports:
       - 9090:9090
   
   node-exporter:
     image: prom/node-exporter
     networks:
-      - localprom
+      - fiap_network
     ports:
       - 9100:9100
  
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    hostname: grafana
+    environment:
+      -  GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - fiap_network
+
 networks:
-  localprom:
+  fiap_network:
     driver: bridge
 
 volumes:
   sqlserver-data:
+  prometheus_data:
+  grafana_data:
+  
