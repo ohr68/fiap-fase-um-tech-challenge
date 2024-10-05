@@ -1,5 +1,6 @@
 services:
   fiap.faseum.techchallenge.api:
+    container_name: api_fiap
     image: ${DOCKER_REGISTRY-}fiapfaseumtechchallengeapi
     build:
       context: .
@@ -7,7 +8,7 @@ services:
     depends_on:
       - sql-server
     networks:
-      - my-network
+      - localprom
     command: sh -c "sleep 10 && dotnet ef database update && dotnet FIAP.FaseUm.TechChallenge.Api.dll"
 
   sql-server:
@@ -19,7 +20,7 @@ services:
     ports:
       - "1433:1433"
     networks:
-      - my-network
+      - localprom
     volumes:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
@@ -27,8 +28,24 @@ services:
       interval: 10s
       retries: 5
 
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - localprom
+    ports:
+      - 9090:9090
+  
+  node-exporter:
+    image: prom/node-exporter
+    networks:
+      - localprom
+    ports:
+      - 9100:9100
+ 
 networks:
-  my-network:
+  localprom:
     driver: bridge
 
 volumes:

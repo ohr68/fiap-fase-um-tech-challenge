@@ -1,5 +1,6 @@
 using FIAP.FaseUm.TechChallenge.Api.Filters;
 using FIAP.FaseUm.TechChallenge.IoC;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +31,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpMetrics();
 
 app.UseAuthorization();
+
+app.MapMetrics();
 
 app.MapControllers();
 
