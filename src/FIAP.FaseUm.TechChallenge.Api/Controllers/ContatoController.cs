@@ -13,7 +13,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
         public async Task<IActionResult> ListarContatos(string? ddd) => Ok(await contatoAppService.ListarContatos(ddd));
 
 
-        [HttpPost("cadastrar")]
+        [HttpPost]
         public async Task<IActionResult> CadastrarContato([FromBody] CadastroContatoDto contato)
         {
             var contatoCadastrado = await contatoAppService.CadastrarContato(contato);
@@ -23,7 +23,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
         }
 
 
-        [HttpPut("alterar/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> AlterarContato(int id, [FromBody] AlteracaoContatoDto contato)
         {
             if (id == 0)
@@ -37,7 +37,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("remover/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoverContato(int id)
         {
             if (id == 0)

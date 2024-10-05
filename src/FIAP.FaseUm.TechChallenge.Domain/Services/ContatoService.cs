@@ -1,4 +1,5 @@
-﻿using FIAP.FaseUm.TechChallenge.Domain.Entities;
+﻿using FIAP.FaseUm.TechChallenge.Custom.Exceptions.Config;
+using FIAP.FaseUm.TechChallenge.Domain.Entities;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Repositories;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
 
@@ -8,10 +9,10 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Services
     {
         public async Task AlterarContato(int id, Contato contato)
         {
-            var contatoBase = await contatoRepository.GetById(id)
-                /*?? throw new NotFoundException($"Contato de id {id} não encontrado")*/;
+            var contatoBase = await contatoRepository.GetById(id) ??
+                throw new NotFoundException($"Contato de id {id} não encontrado");
 
-            contatoBase.Alterar(contato.Nome, contato.Telefone, contato.Email);
+            contatoBase.Alterar(contato.Nome!, contato.Telefone!, contato.Email!);
 
             contatoRepository.Update(contatoBase);
         }
@@ -22,8 +23,8 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Services
 
         public async Task RemoverContato(int id)
         {
-            var contato = await contatoRepository.GetById(id)
-                /*?? throw new NotFoundException($"Contato de id {id} não encontrado")*/;
+            var contato = await contatoRepository.GetById(id) ??
+                throw new NotFoundException($"Contato de id {id} não encontrado");
 
             contatoRepository.Delete(contato);
         }
