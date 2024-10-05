@@ -1,0 +1,13 @@
+services:
+  fiap.faseum.techchallenge.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__TechChallengeFaseUm=Server=sql-server;Database=fiapfaseum;User Id=sa;Password=Senha@123;Encrypt=True;TrustServerCertificate=True;;
+    ports:
+      - "8080"
+      - "8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

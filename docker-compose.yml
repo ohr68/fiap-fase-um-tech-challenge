@@ -1,0 +1,35 @@
+services:
+  fiap.faseum.techchallenge.api:
+    image: ${DOCKER_REGISTRY-}fiapfaseumtechchallengeapi
+    build:
+      context: .
+      dockerfile: src/FIAP.FaseUm.TechChallenge.Api/Dockerfile
+    depends_on:
+      - sql-server
+    networks:
+      - my-network
+    command: sh -c "sleep 10 && dotnet ef database update && dotnet FIAP.FaseUm.TechChallenge.Api.dll"
+
+  sql-server:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Senha@123
+    ports:
+      - "1433:1433"
+    networks:
+      - my-network
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1' | /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Senha@123"]
+      interval: 10s
+      retries: 5
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
