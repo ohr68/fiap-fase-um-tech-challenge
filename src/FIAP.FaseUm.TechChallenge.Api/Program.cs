@@ -1,7 +1,6 @@
 using FIAP.FaseUm.TechChallenge.Api.Filters;
 using FIAP.FaseUm.TechChallenge.IoC;
 using Prometheus;
-using OpenTelemetry.Metrics;
 using FIAP.FaseUm.TechChallenge.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,9 +24,13 @@ builder.Services.UseHttpClientMetrics();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.ConfigureServices(builder.Configuration, builder.Environment.IsDevelopment());
 
 var app = builder.Build();
+
+//Starting the metrics exporter, will expose "/metrics"
+app.UseMetricServer();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,16 +39,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMetricServer();
-
 //adding metrics related to HTTP
-app.UseHttpMetrics();
+app.UseHttpMetrics(options =>
+{
+    options.AddCustomLabel("host", context => context.Request.Host.Host);
+});
 
 app.UseAuthorization();
 
+app.MapMetrics();
 app.MapControllers();
 
-app.MapMetrics();
 
 // When the app runs, it first creates the Database.
 using (var scope = app.Services.CreateScope())
@@ -53,6 +57,7 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<TechChallengeFaseUmDbContext>();
     db.Database.Migrate();
 }
+
 
 app.Run();
 

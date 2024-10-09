@@ -199,7 +199,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.50, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.50, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "legendFormat": "p50",
           "range": true,
           "refId": "p50"
@@ -210,7 +210,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.75, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.75, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p75",
           "range": true,
@@ -222,7 +222,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.90, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.90, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p90",
           "range": true,
@@ -234,7 +234,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p95",
           "range": true,
@@ -246,7 +246,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.98, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.98, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p98",
           "range": true,
@@ -258,7 +258,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p99",
           "range": true,
@@ -270,7 +270,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "histogram_quantile(0.999, sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval])) by (le))",
+          "expr": "histogram_quantile(0.999, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
           "hide": false,
           "legendFormat": "p99.9",
           "range": true,
@@ -425,7 +425,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\", http_response_status_code=~\"4..|5..\"}[$__rate_interval]) or vector(0)) / sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval]))",
+          "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"4..|5..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
           "legendFormat": "All",
           "range": true,
           "refId": "All"
@@ -436,7 +436,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\", http_response_status_code=~\"4..\"}[$__rate_interval]) or vector(0)) / sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval]))",
+          "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"4..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
           "hide": false,
           "legendFormat": "4XX",
           "range": true,
@@ -448,7 +448,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\", http_response_status_code=~\"5..\"}[$__rate_interval]) or vector(0)) / sum(rate(http_server_request_duration_seconds_bucket{job=\"$job\", instance=\"$instance\"}[$__rate_interval]))",
+          "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"5..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
           "hide": false,
           "legendFormat": "5XX",
           "range": true,
@@ -541,10 +541,10 @@
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum(kestrel_active_connections{job=\"$job\", instance=\"$instance\"})",
+          "expr": "sum(microsoft_aspnetcore_server_kestrel_current_connections{job=\"webapp\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -639,7 +639,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum(http_server_active_requests{job=\"$job\", instance=\"$instance\"})",
+          "expr": "sum(microsoft_aspnetcore_hosting_http_server_active_requests{job=\"webapp\"})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -708,7 +708,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\"})",
+          "expr": "sum(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -778,7 +778,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\", error_type!=\"\"})",
+          "expr": "sum(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\", error_type!=\"\"})",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -846,7 +846,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum by (url_scheme) (\r\n    max_over_time(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\"}[$__rate_interval])\r\n  )",
+          "expr": "sum by (url_scheme) (\r\n    max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"}[$__interval])\r\n  )",
           "legendFormat": "{{scheme}}",
           "range": true,
           "refId": "A"
@@ -913,7 +913,7 @@
              "uid": "prometheusdatasource"
           },
           "editorMode": "code",
-          "expr": "sum by (method_route) (\r\n    label_replace(max_over_time(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\"}[$__rate_interval]), \"method_route\", \"http/$1\", \"network_protocol_version\", \"(.*)\")\r\n  )",
+          "expr": "sum by (method_route) (\r\n    label_replace(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"}[$__interval]), \"method_route\", \"http/$1\", \"network_protocol_version\", \"(.*)\")\r\n  )",
           "legendFormat": "{{protocol}}",
           "range": true,
           "refId": "A"
@@ -1060,7 +1060,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\", http_route!=\"\"}[$__rate_interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
+          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\", http_route!=\"\"}[$__interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1234,7 +1234,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(http_server_request_duration_seconds_count{job=\"$job\", instance=\"$instance\", http_route!=\"\", error_type!=\"\"}[$__rate_interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
+          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\", http_route!=\"\", error_type!=\"\"}[$__interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -1287,7 +1287,7 @@
           "type": "prometheus",
            "uid": "prometheusdatasource"
         },
-        "definition": "label_values(http_server_active_requests,job)",
+        "definition": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests,job)",
         "hide": 0,
         "includeAll": false,
         "label": "Job",
@@ -1295,7 +1295,7 @@
         "name": "job",
         "options": [],
         "query": {
-          "query": "label_values(http_server_active_requests,job)",
+          "query": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests,job)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
@@ -1310,7 +1310,7 @@
           "type": "prometheus",
            "uid": "prometheusdatasource"
         },
-        "definition": "label_values(http_server_active_requests{job=~\"$job\"},instance)",
+        "definition": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests{job=~\"webapp\"},instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Instance",
@@ -1318,7 +1318,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(http_server_active_requests{job=~\"$job\"},instance)",
+          "query": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests{job=~\"webapp\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
