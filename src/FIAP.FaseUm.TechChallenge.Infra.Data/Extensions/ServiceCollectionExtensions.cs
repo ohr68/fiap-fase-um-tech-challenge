@@ -9,19 +9,29 @@ namespace FIAP.FaseUm.TechChallenge.Infra.Data.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddInfraLayer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfraLayer(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
         {
-          services
-               .AddDatabase(configuration)
-               .AddRepositories();
+            services
+                 .AddDatabase(configuration, isDevelopment)
+                 .AddRepositories();
 
             return services;
         }
 
-        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
         {
             services.AddDbContext<TechChallengeFaseUmDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("TechChallengeFaseUm")));
+                options =>
+                {
+                    var connectionString = configuration.GetConnectionString("TechChallengeFaseUm")!;
+                    if (!isDevelopment)
+                    {
+                        var password = Environment.GetEnvironmentVariable("SA_PASSWORD");
+                        connectionString = string.Format(connectionString, password);
+                    }
+                    options.UseSqlServer(connectionString);
+
+                });
 
             return services;
         }

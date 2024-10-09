@@ -9,12 +9,12 @@ namespace FIAP.FaseUm.TechChallenge.IoC
 {
     public static class Config
     {
-        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration) 
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration, bool isDevelopment) 
         {
             services
                 .AddApplicationLayer()
                 .AddDomainLayer()
-                .AddInfraLayer(configuration);
+                .AddInfraLayer(configuration, isDevelopment);
 
             return services;
         }

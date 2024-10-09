@@ -41,6 +41,12 @@ services:
       - '--storage.tsdb.path=/prometheus'
     ports:
       - 9090:9090
+    healthcheck:
+        test: wget -q --tries=1 -O- http://localhost:9090/
+        interval: 3s
+        timeout: 3s
+        retries: 10
+        start_period: 10s
   
   node-exporter:
     image: prom/node-exporter
@@ -54,14 +60,26 @@ services:
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
     hostname: grafana
     environment:
-      -  GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     restart: unless-stopped
+    depends_on:
+      prometheus:
+         condition: service_healthy  
     ports:
       - 3000:3000
     networks:
       - fiap_network
+    healthcheck:
+        test: wget -q --tries=1 -O- http://localhost:3000/
+        interval: 3s
+        timeout: 3s
+        retries: 10
+        start_period: 10s
 
 networks:
   fiap_network:
