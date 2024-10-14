@@ -1,48 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheusdatasource",
-      "pluginName": "Prometheus",
-      "uid": "prometheusdatasource"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -70,220 +26,93 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 19924,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
+        "default": true,
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "dark-green",
-            "mode": "continuous-GrYlRd",
-            "seriesBy": "max"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "axisSoftMin": 0,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto",
+              "wrapText": false
             },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "inspect": true
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null+nan",
-                "result": {
-                  "index": 1,
-                  "text": "0 ms"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "p50"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
+              },
               {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
+                "color": "red",
+                "value": 80
               }
             ]
           }
-        ]
+        },
+        "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 40,
+      "id": 63,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [],
+          "reducer": [
+            "sum"
           ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
+          "show": true
         },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": []
       },
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
+          "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "histogram_quantile(0.50, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "legendFormat": "p50",
+          "expr": "sum by (http_response_status_code) (max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"}[$__interval]))",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{http_response_status_code}}",
           "range": true,
-          "refId": "p50"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.75, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p75",
-          "range": true,
-          "refId": "p75"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.90, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p90",
-          "range": true,
-          "refId": "p90"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.95, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p95",
-          "range": true,
-          "refId": "p95"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.98, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p98",
-          "range": true,
-          "refId": "p98"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.99, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p99",
-          "range": true,
-          "refId": "p99"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "histogram_quantile(0.999, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
-          "hide": false,
-          "legendFormat": "p99.9",
-          "range": true,
-          "refId": "p99.9"
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Requests Duration",
-      "type": "timeseries"
+      "title": "Requests By Status Code",
+      "type": "table"
     },
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -298,6 +127,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
             "gradientMode": "opacity",
@@ -422,7 +252,7 @@
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"4..|5..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
@@ -433,7 +263,7 @@
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"4..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
@@ -445,7 +275,7 @@
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "expr": "sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\", http_response_status_code=~\"5..\"}[$__interval]) or vector(0)) / sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval]))",
@@ -460,22 +290,23 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "left",
             "barAlignment": 0,
+            "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 0,
             "gradientMode": "none",
@@ -498,12 +329,12 @@
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "dashed"
             }
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -520,138 +351,49 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 6,
+        "w": 12,
         "x": 0,
-        "y": 9
+        "y": 8
       },
-      "id": 49,
+      "id": 62,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
           "sort": "none"
         }
       },
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "prometheusdatasource"
           },
-          "editorMode": "code",
-          "expr": "sum(microsoft_aspnetcore_server_kestrel_current_connections{job=\"webapp\"})",
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "dotnet_total_memory_bytes{job=\"webapp\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
           "legendFormat": "__auto",
           "range": true,
-          "refId": "A"
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Current Connections",
+      "title": "Total Allocated Memory",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 9
-      },
-      "id": 55,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-             "uid": "prometheusdatasource"
-          },
-          "editorMode": "code",
-          "expr": "sum(microsoft_aspnetcore_hosting_http_server_active_requests{job=\"webapp\"})",
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Current Requests",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -689,6 +431,7 @@
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -696,15 +439,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -721,7 +466,7 @@
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -759,6 +504,7 @@
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -766,15 +512,17 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "value"
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -791,7 +539,7 @@
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "description": "",
       "fieldConfig": {
@@ -829,6 +577,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "max"
@@ -836,14 +585,16 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "expr": "sum by (url_scheme) (\r\n    max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"}[$__interval])\r\n  )",
@@ -858,7 +609,7 @@
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "description": "",
       "fieldConfig": {
@@ -896,6 +647,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "max"
@@ -903,14 +655,16 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "expr": "sum by (method_route) (\r\n    label_replace(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\"}[$__interval]), \"method_route\", \"http/$1\", \"network_protocol_version\", \"(.*)\")\r\n  )",
@@ -924,21 +678,14 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -955,152 +702,59 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Requests"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 300
-              },
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "mode": "gradient",
-                  "type": "gauge"
-                }
-              },
-              {
-                "id": "color",
-                "value": {
-                  "mode": "continuous-BlPu"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Endpoint"
-            },
-            "properties": [
-              {
-                "id": "links",
-                "value": [
-                  {
-                    "targetBlank": false,
-                    "title": "Test",
-                    "url": "/d/NagEsjE4z/asp-net-core-endpoint-details?var-route=${__data.fields.http_route}&var-method=${__data.fields.http_request_method}&${__url_time_range}"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_route"
-            },
-            "properties": [
-              {
-                "id": "custom.hidden",
-                "value": true
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_request_method"
-            },
-            "properties": [
-              {
-                "id": "custom.hidden",
-                "value": true
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 16
       },
-      "hideTimeOverride": false,
-      "id": 51,
+      "id": 61,
       "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
           ],
-          "show": false
+          "fields": "",
+          "values": false
         },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Value"
-          }
-        ]
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
-          "editorMode": "code",
+          "disableTextWrap": false,
+          "editorMode": "builder",
           "exemplar": false,
-          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\", http_route!=\"\"}[$__interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
+          "expr": "system_runtime_cpu_usage{job=\"webapp\"}",
           "format": "table",
-          "instant": true,
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
           "interval": "",
-          "legendFormat": "{{route}}",
-          "range": false,
-          "refId": "A"
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Top 10 Requested Endpoints",
-      "transformations": [
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": true,
-              "method": false,
-              "route": false
-            },
-            "indexByName": {
-              "Time": 0,
-              "Value": 4,
-              "method": 2,
-              "method_route": 3,
-              "route": 1
-            },
-            "renameByName": {
-              "Value": "Requests",
-              "method": "",
-              "method_route": "Endpoint",
-              "route": ""
-            }
-          }
-        }
-      ],
-      "type": "table"
+      "title": "CPU Usage",
+      "type": "gauge"
     },
     {
       "datasource": {
         "type": "prometheus",
-         "uid": "prometheusdatasource"
+        "uid": "prometheusdatasource"
       },
       "description": "",
       "fieldConfig": {
@@ -1225,12 +879,12 @@
           }
         ]
       },
-      "pluginVersion": "",
+      "pluginVersion": "11.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-             "uid": "prometheusdatasource"
+            "uid": "prometheusdatasource"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1269,11 +923,585 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdatasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-green",
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "max"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null+nan",
+                "result": {
+                  "index": 1,
+                  "text": "0 ms"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "p50"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.50, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "legendFormat": "p50",
+          "range": true,
+          "refId": "p50"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.75, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p75",
+          "range": true,
+          "refId": "p75"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.90, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p90",
+          "range": true,
+          "refId": "p90"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.95, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p95",
+          "range": true,
+          "refId": "p95"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.98, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p98",
+          "range": true,
+          "refId": "p98"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.99, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p99",
+          "range": true,
+          "refId": "p99"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "histogram_quantile(0.999, sum(rate(microsoft_aspnetcore_hosting_http_server_request_duration_bucket{job=\"webapp\"}[$__interval])) by (le))",
+          "hide": false,
+          "legendFormat": "p99.9",
+          "range": true,
+          "refId": "p99.9"
+        }
+      ],
+      "title": "Requests Duration",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdatasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 33
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "sum(microsoft_aspnetcore_server_kestrel_current_connections{job=\"webapp\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Current Connections",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdatasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 33
+      },
+      "id": 55,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "expr": "sum(microsoft_aspnetcore_hosting_http_server_active_requests{job=\"webapp\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Current Requests",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdatasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 300
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Endpoint"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": false,
+                    "title": "Test",
+                    "url": "/d/NagEsjE4z/asp-net-core-endpoint-details?var-route=${__data.fields.http_route}&var-method=${__data.fields.http_request_method}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_route"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_request_method"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 41
+      },
+      "hideTimeOverride": false,
+      "id": 51,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Value"
+          }
+        ]
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheusdatasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "  topk(10,\r\n  sum by (http_route, http_request_method, method_route) (\r\n    label_join(max_over_time(microsoft_aspnetcore_hosting_http_server_request_duration_count{job=\"webapp\", http_route!=\"\"}[$__interval]), \"method_route\", \" \", \"http_request_method\", \"http_route\")\r\n  ))",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{route}}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Top 10 Requested Endpoints",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "method": false,
+              "route": false
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 4,
+              "method": 2,
+              "method_route": 3,
+              "route": 1
+            },
+            "renameByName": {
+              "Value": "Requests",
+              "method": "",
+              "method_route": "Endpoint",
+              "route": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
     }
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [
     "dotnet",
     "prometheus",
@@ -1282,10 +1510,14 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "webapp",
+          "value": "webapp"
+        },
         "datasource": {
           "type": "prometheus",
-           "uid": "prometheusdatasource"
+          "uid": "prometheusdatasource"
         },
         "definition": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests,job)",
         "hide": 0,
@@ -1305,10 +1537,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "api_fiap:8080",
+          "value": "api_fiap:8080"
+        },
         "datasource": {
           "type": "prometheus",
-           "uid": "prometheusdatasource"
+          "uid": "prometheusdatasource"
         },
         "definition": "label_values(microsoft_aspnetcore_hosting_http_server_active_requests{job=~\"webapp\"},instance)",
         "hide": 0,
@@ -1330,8 +1566,8 @@
     ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2024-10-14T11:42:56.867Z",
+    "to": "2024-10-14T11:52:56.867Z"
   },
   "timepicker": {
     "refresh_intervals": [

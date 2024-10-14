@@ -54,8 +54,10 @@ app.MapControllers();
 // When the app runs, it first creates the Database.
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<TechChallengeFaseUmDbContext>();
-    db.Database.Migrate();
+    var context = scope.ServiceProvider.GetRequiredService<TechChallengeFaseUmDbContext>();
+
+    if (context.Database.IsRelational())
+        context.Database.Migrate();
 }
 
 
