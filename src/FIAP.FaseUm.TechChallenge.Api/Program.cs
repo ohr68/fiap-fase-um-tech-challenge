@@ -2,7 +2,6 @@ using FIAP.FaseUm.TechChallenge.Api.Filters;
 using FIAP.FaseUm.TechChallenge.IoC;
 using Prometheus;
 using FIAP.FaseUm.TechChallenge.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,14 +49,12 @@ app.UseAuthorization();
 app.MapMetrics();
 app.MapControllers();
 
-
 // When the app runs, it first creates the Database.
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<TechChallengeFaseUmDbContext>();
     context.Database.EnsureCreated();
 }
-
 
 app.Run();
 

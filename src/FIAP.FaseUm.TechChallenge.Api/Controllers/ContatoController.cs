@@ -23,7 +23,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> AlterarContato(int id, [FromBody] AlteracaoContatoDto contato)
         {
             if (id == 0)
@@ -37,7 +37,7 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> RemoverContato(int id)
         {
             if (id == 0)
