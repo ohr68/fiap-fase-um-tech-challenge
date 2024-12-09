@@ -6,10 +6,25 @@ services:
       context: .
       dockerfile: src/FIAP.FaseUm.TechChallenge.Api/Dockerfile
     depends_on:
-      - sql-server
+      sql-server:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
     networks:
       - fiap_network
     command: sh -c "sleep 10 && dotnet ef database update && dotnet FIAP.FaseUm.TechChallenge.Api.dll"
+    
+  fiap.faseum.techchallenge.worker:
+    container_name: worker_fiap
+    image: fiap.faseum.techchallenge.worker
+    build:
+      context: .
+      dockerfile: FIAP.FaseUm.TechChallenge.Worker/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - fiap_network
 
   sql-server:
     container_name: sql-server
@@ -80,6 +95,23 @@ services:
         timeout: 3s
         retries: 10
         start_period: 10s
+  
+  rabbitmq:
+    image: masstransit/rabbitmq
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fiap_network
 
 networks:
   fiap_network:
@@ -89,4 +121,3 @@ volumes:
   sqlserver-data:
   prometheus_data:
   grafana_data:
-  

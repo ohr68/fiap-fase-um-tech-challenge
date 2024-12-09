@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Helpers

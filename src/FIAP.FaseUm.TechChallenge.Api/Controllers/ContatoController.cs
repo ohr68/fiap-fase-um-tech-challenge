@@ -8,7 +8,6 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
     [ApiController]
     public class ContatoController(IContatoAppService contatoAppService) : ControllerBase
     {
-
         [HttpGet]
         public async Task<IActionResult> ListarContatos(string? ddd) => Ok(await contatoAppService.ListarContatos(ddd));
 
@@ -17,7 +16,8 @@ namespace FIAP.FaseUm.TechChallenge.Api.Controllers
         public async Task<IActionResult> CadastrarContato([FromBody] CadastroContatoDto contato)
         {
             var contatoCadastrado = await contatoAppService.CadastrarContato(contato);
-            var urlContatoCadastrado = Url.Action(nameof(CadastrarContato), new { id = contatoCadastrado.id }) ?? $"/{contatoCadastrado.id}";
+            var urlContatoCadastrado = Url.Action(nameof(CadastrarContato), new { id = contatoCadastrado.id }) ??
+                                       $"/{contatoCadastrado.id}";
 
             return Created(urlContatoCadastrado, contatoCadastrado);
         }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FIAP.FaseUm.TechChallenge.Infra.Messaging\FIAP.FaseUm.TechChallenge.Infra.Messaging.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Application\FIAP.FaseUm.TechChallenge.Application.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Domain\FIAP.FaseUm.TechChallenge.Domain.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Infra.Data\FIAP.FaseUm.TechChallenge.Infra.Data.csproj" />

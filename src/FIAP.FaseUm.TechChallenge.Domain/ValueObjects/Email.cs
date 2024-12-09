@@ -22,5 +22,8 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
 
             Endereco = address.ToLower().Trim();
         }
+
+        public override string ToString() 
+            => Endereco;
     }
 }

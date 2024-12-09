@@ -10,4 +10,8 @@
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Custom.Exceptions\FIAP.FaseUm.TechChallenge.Custom.Exceptions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Messaging\Events\" />
+  </ItemGroup>
+
 </Project>

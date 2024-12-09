@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FIAP.FaseUm.TechChallenge.Infra.Messaging\FIAP.FaseUm.TechChallenge.Infra.Messaging.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.Application\FIAP.FaseUm.TechChallenge.Application.csproj" />
     <ProjectReference Include="..\FIAP.FaseUm.TechChallenge.IoC\FIAP.FaseUm.TechChallenge.IoC.csproj" />
   </ItemGroup>
