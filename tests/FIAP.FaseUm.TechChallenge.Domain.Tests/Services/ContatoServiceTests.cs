@@ -2,7 +2,6 @@
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
 using FIAP.FaseUm.TechChallenge.Domain.Tests.Fixtures;
 using FIAP.FaseUm.TechChallenge.Domain.Tests.Helpers;
-using FIAP.FaseUm.TechChallenge.Infra.Data.Context;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 

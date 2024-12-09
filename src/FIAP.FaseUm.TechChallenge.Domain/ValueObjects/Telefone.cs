@@ -48,5 +48,8 @@ namespace FIAP.FaseUm.TechChallenge.Domain.ValueObjects
 
         private string ObterTelefoneLimpo(string telefone)
             => Regex.Replace(telefone, @"\D", ""); // Remove todos os caracteres que não são dígitos
+
+        public override string ToString() 
+            => Ddd + Numero;
     }
 }

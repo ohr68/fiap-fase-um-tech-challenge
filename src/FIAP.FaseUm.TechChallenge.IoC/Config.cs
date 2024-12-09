@@ -4,6 +4,7 @@ using FIAP.FaseUm.TechChallenge.Application.Extensions;
 using FIAP.FaseUm.TechChallenge.Infra.Data.Extensions;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
 using FIAP.FaseUm.TechChallenge.Domain.Services;
+using FIAP.FaseUm.TechChallenge.Infra.Messaging.Extensions;
 
 namespace FIAP.FaseUm.TechChallenge.IoC
 {
@@ -14,7 +15,8 @@ namespace FIAP.FaseUm.TechChallenge.IoC
             services
                 .AddApplicationLayer()
                 .AddDomainLayer()
-                .AddInfraLayer(configuration, isDevelopment);
+                .AddInfraLayer(configuration, isDevelopment)
+                .AddMessaging(configuration);
 
             return services;
         }

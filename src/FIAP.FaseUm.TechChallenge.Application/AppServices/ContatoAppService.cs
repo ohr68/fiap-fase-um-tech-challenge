@@ -31,7 +31,7 @@ namespace FIAP.FaseUm.TechChallenge.Application.AppServices
 
             var contatoCadastro = contato.Adapt<Contato>();
 
-            contatoService.CadastrarContato(contatoCadastro);
+            await contatoService.CadastrarContato(contatoCadastro);
 
             return contatoCadastro.Adapt<ConsultaContatoDto>();
         }

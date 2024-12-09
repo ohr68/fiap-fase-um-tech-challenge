@@ -1,32 +1,44 @@
-﻿using FIAP.FaseUm.TechChallenge.Custom.Exceptions.Config;
-using FIAP.FaseUm.TechChallenge.Domain.Entities;
+﻿using FIAP.FaseUm.TechChallenge.Domain.Entities;
+using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Messaging;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Repositories;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
+using FIAP.FaseUm.TechChallenge.Domain.Messaging.Commands;
 
 namespace FIAP.FaseUm.TechChallenge.Domain.Services
 {
-    public class ContatoService(IContatoRepository contatoRepository) : IContatoService
+    public class ContatoService(IContatoRepository contatoRepository, IQueueService queueService) : IContatoService
     {
         public async Task AlterarContato(int id, Contato contato)
         {
-            var contatoBase = await contatoRepository.GetById(id) ??
-                throw new NotFoundException($"Contato de id {id} não encontrado");
+            var alterarContato = new AlterarContato
+            (
+                id,
+                contato.Nome!,
+                contato.Telefone!.ToString(),
+                contato.Email!.ToString()
+            );
 
-            contatoBase.Alterar(contato.Nome!, contato.Telefone!, contato.Email!);
-
-            contatoRepository.Update(contatoBase);
+            await queueService.Publish(alterarContato);
         }
 
-        public void CadastrarContato(Contato contato) => contatoRepository.Add(contato);
-
-        public async Task<IEnumerable<Contato>> ListarContatos(string ddd) => await contatoRepository.ListarContatos(ddd) ?? new List<Contato>();        
-
-        public async Task RemoverContato(int id)
+        public async Task CadastrarContato(Contato contato)
         {
-            var contato = await contatoRepository.GetById(id) ??
-                throw new NotFoundException($"Contato de id {id} não encontrado");
+            if (contato is null)
+                throw new ArgumentNullException(nameof(contato));
 
-            contatoRepository.Delete(contato);
+            var criarContato = new CriarContato
+            (
+                contato.Nome!,
+                contato.Telefone!.ToString(),
+                contato.Email!.ToString()
+            );
+
+            await queueService.Publish(criarContato);
         }
+
+        public async Task<IEnumerable<Contato>> ListarContatos(string ddd) =>
+            await contatoRepository.ListarContatos(ddd) ?? new List<Contato>();
+
+        public async Task RemoverContato(int id) => await queueService.Publish(new RemoverContato(id));
     }
 }
