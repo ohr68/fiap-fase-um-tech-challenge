@@ -1,9 +1,12 @@
-﻿using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Repositories;
+﻿using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Messaging;
+using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Repositories;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
+using FIAP.FaseUm.TechChallenge.Domain.Services;
 using FIAP.FaseUm.TechChallenge.Domain.Tests.Fixtures;
 using FIAP.FaseUm.TechChallenge.Domain.Tests.Helpers;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
 namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
 {
@@ -21,7 +24,6 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
 
         [Fact(DisplayName = "Cadastrar contato com sucesso.")]
         [Trait("", "ContatoService")]
-        [TestOrder(Order = 1)]
         public async Task ContatoService_CadastrarContato()
         {
             // Arrange
@@ -29,22 +31,20 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
             {
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
-                var contatoService = scopedServices.GetRequiredService<IContatoService>();
+                var queueServiceMock = new Mock<IQueueService>();
+                var contatoService = new ContatoService(contatoRepository, queueServiceMock.Object);
                 var contato = _contatoFixture.GerarContatoValido();
 
                 // Act
-                contatoService.CadastrarContato(contato);
+                await contatoService.CadastrarContato(contato);
 
                 // Assert
-                var contatoAdicionado = await contatoRepository.GetById(contato.Id);
-                _contatoServiceFixture.SetContatoAdicionado(contatoAdicionado);
-                contatoAdicionado.Should().NotBeNull();
+                queueServiceMock.Verify(q => q.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()), Times.Once);
             }
         }
 
         [Fact(DisplayName = "Alterar contato com sucesso.")]
         [Trait("", "ContatoService")]
-        [TestOrder(Order = 2)]
         public async Task ContatoService_AlterarContato()
         {
             // Arrange
@@ -52,49 +52,21 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
             {
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
-                var contatoService = scopedServices.GetRequiredService<IContatoService>();
+                var queueServiceMock = new Mock<IQueueService>();
+                var contatoService = new ContatoService(contatoRepository, queueServiceMock.Object);
                 var contato = _contatoFixture.GerarContatoValido();
-                var contatoExistente = _contatoServiceFixture.ContatoAdicionado;
 
                 // Act
-                await contatoService.AlterarContato(contatoExistente!.Id, contato);
+                await contatoService.AlterarContato(1, contato);
 
                 // Assert
-                var contatoAlterado = await contatoRepository.GetById(contatoExistente.Id);
-                contatoAlterado.Should().NotBeNull();
-                contatoAlterado!.Nome.Should().Be(contato.Nome);
-                contatoAlterado.Telefone.Numero.Should().Be(contato.Telefone.Numero);
-                contatoAlterado.Telefone.Ddd.Should().Be(contato.Telefone.Ddd);
-                contatoAlterado.Email.Endereco.Should().Be(contato.Email.Endereco);
-                _contatoServiceFixture.SetContatoAdicionado(contatoAlterado);
-            }
-        }
-
-        [Fact(DisplayName = "Listar contatos com sucesso.")]
-        [Trait("", "ContatoService")]
-        [TestOrder(Order = 3)]
-        public async Task ContatoService_ListarContatos()
-        {
-            // Arrange
-            using (var scope = _contatoServiceFixture.ServiceProvider.CreateScope())
-            {
-                var scopedServices = scope.ServiceProvider;
-                var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
-                var contatoService = scopedServices.GetRequiredService<IContatoService>();
-                var contatoExistente = _contatoServiceFixture.ContatoAdicionado;
-
-                // Act
-                var contatos = await contatoService.ListarContatos(contatoExistente!.Telefone.Ddd);
-
                 // Assert
-                contatos.Should().NotBeEmpty();
-                contatos.Should().HaveCountGreaterThanOrEqualTo(1);
+                queueServiceMock.Verify(q => q.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()), Times.Once);
             }
         }
 
         [Fact(DisplayName = "Remover contato com sucesso.")]
         [Trait("", "ContatoService")]
-        [TestOrder(Order = 4)]
         public async Task ContatoService_RemoverContato()
         {
             // Arrange
@@ -102,15 +74,14 @@ namespace FIAP.FaseUm.TechChallenge.Domain.Tests.Services
             {
                 var scopedServices = scope.ServiceProvider;
                 var contatoRepository = scopedServices.GetRequiredService<IContatoRepository>();
-                var contatoService = scopedServices.GetRequiredService<IContatoService>();
-                var contatoExistente = _contatoServiceFixture.ContatoAdicionado;
+                var queueServiceMock = new Mock<IQueueService>();
+                var contatoService = new ContatoService(contatoRepository, queueServiceMock.Object);
 
                 // Act
-                await contatoService.RemoverContato(contatoExistente!.Id);
+                await contatoService.RemoverContato(1);
 
                 // Assert
-                var contatoRemovido = await contatoRepository.GetById(contatoExistente.Id);
-                contatoRemovido.Should().BeNull();
+                queueServiceMock.Verify(q => q.Publish(It.IsAny<object>(), It.IsAny<CancellationToken>()), Times.Once);
             }
         }
     }

@@ -54,9 +54,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Workers", "0 - Workers", "{B24CE7B5-EA83-4826-BA9D-7CF4862C6AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Infra.Messaging", "FIAP.FaseUm.TechChallenge.Infra.Messaging\FIAP.FaseUm.TechChallenge.Infra.Messaging.csproj", "{9A4E1A18-D510-4CF9-BD87-79D2B45CF023}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Infra.Messaging", "src\FIAP.FaseUm.TechChallenge.Infra.Messaging\FIAP.FaseUm.TechChallenge.Infra.Messaging.csproj", "{9A4E1A18-D510-4CF9-BD87-79D2B45CF023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Worker", "FIAP.FaseUm.TechChallenge.Worker\FIAP.FaseUm.TechChallenge.Worker.csproj", "{EA274B58-E2B4-4B60-BE19-D33384EA2E43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Worker", "src\FIAP.FaseUm.TechChallenge.Worker\FIAP.FaseUm.TechChallenge.Worker.csproj", "{EA274B58-E2B4-4B60-BE19-D33384EA2E43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

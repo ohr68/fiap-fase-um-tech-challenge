@@ -1,9 +1,11 @@
 ﻿using FIAP.FaseUm.TechChallenge.Domain.Entities;
+using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Messaging;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Repositories;
 using FIAP.FaseUm.TechChallenge.Domain.Interfaces.Services;
 using FIAP.FaseUm.TechChallenge.Domain.Services;
 using FIAP.FaseUm.TechChallenge.Infra.Data.Context;
 using FIAP.FaseUm.TechChallenge.Infra.Data.Repositories;
+using FIAP.FaseUm.TechChallenge.Infra.Messaging.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

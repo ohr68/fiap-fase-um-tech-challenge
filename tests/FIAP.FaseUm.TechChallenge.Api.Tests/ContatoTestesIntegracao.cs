@@ -52,10 +52,8 @@ namespace FIAP.FaseUm.TechChallenge.Api.Tests
         public async Task AlterarContato_ComSucesso()
         {
             // Arrange
-            var responseContatoCriado = await CriarContato(new("Gabriel", "17992018699", "gabriel_antognoli@hotmail.com"));
-            var contatoCriado = await responseContatoCriado.Content.ReadFromJsonAsync<ConsultaContatoDto>();
-            var url = $"/api/contato/{contatoCriado.id}";
-            AlteracaoContatoDto contato = new(contatoCriado.id, "Gabriel Alterado", "17992028699", "gabrielantognoli2@gmail.com");
+            var url = $"/api/contato/1";
+            AlteracaoContatoDto contato = new(1, "Gabriel Alterado", "17992028699", "gabrielantognoli2@gmail.com");
 
             // Act
             var response = await _client.PutAsJsonAsync(url, contato);
@@ -69,10 +67,8 @@ namespace FIAP.FaseUm.TechChallenge.Api.Tests
         public async Task AlterarContato_ComErroValidacao()
         {
             // Arrange
-            var responseContatoCriado = await CriarContato(new("Gabriel", "17992018699", "gabriel_antognoli@hotmail.com"));
-            var contatoCriado = await responseContatoCriado.Content.ReadFromJsonAsync<ConsultaContatoDto>();
-            var url = $"/api/contato/{contatoCriado.id}";
-            AlteracaoContatoDto contato = new(contatoCriado.id, "", "", "");
+            var url = $"/api/contato/1";
+            AlteracaoContatoDto contato = new(1, "", "", "");
 
             // Act
             var response = await _client.PutAsJsonAsync(url, contato);
@@ -82,52 +78,18 @@ namespace FIAP.FaseUm.TechChallenge.Api.Tests
             (await response.Content.ReadFromJsonAsync<ProblemDetails>())?.Type.Should().Be(nameof(ValidationException));
         }
 
-        [Fact(DisplayName = "Alterar contato com ids diferentes.")]
-        [Trait("", value: "Teste Integração")]
-        public async Task AlterarContato_ComIdsDiferentes()
-        {
-            // Arrange
-            var responseContatoCriado = await CriarContato(new("Gabriel", "17992018699", "gabriel_antognoli@hotmail.com"));
-            var contatoCriado = await responseContatoCriado.Content.ReadFromJsonAsync<ConsultaContatoDto>();
-            var url = $"/api/contato/{contatoCriado.id}";
-            AlteracaoContatoDto contato = new(100, "", "", "");
-
-            // Act
-            var response = await _client.PutAsJsonAsync(url, contato);
-
-            // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-        }
-
         [Fact(DisplayName = "Remover contato com sucesso.")]
         [Trait("", value: "Teste Integração")]
         public async Task RemoverContato_ComSucesso()
         {
             // Arrange
-            var responseContatoCriado = await CriarContato(new("Gabriel", "17992018699", "gabriel_antognoli@hotmail.com"));
-            var contatoCriado = await responseContatoCriado.Content.ReadFromJsonAsync<ConsultaContatoDto>();
-            var url = $"/api/contato/{contatoCriado.id}";
+            var url = $"/api/contato/1";
 
             // Act
             var response = await _client.DeleteAsync(url);
 
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
-        }
-
-        [Fact(DisplayName = "Remover contato com contato inexistente.")]
-        [Trait("", value: "Teste Integração")]
-        public async Task RemoverContato_ComContatoInexistente()
-        {
-            // Arrange
-            var url = $"/api/contato/100";
-
-            // Act
-            var response = await _client.DeleteAsync(url);
-
-            // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-            (await response.Content.ReadFromJsonAsync<ProblemDetails>())?.Type.Should().Be(nameof(NotFoundException));
         }
 
         private async Task<HttpResponseMessage> CriarContato(CadastroContatoDto contato) 

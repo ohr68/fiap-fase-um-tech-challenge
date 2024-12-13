@@ -1,4 +1,5 @@
 ﻿using FIAP.FaseUm.TechChallenge.Infra.Data.Context;
+using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +13,25 @@ namespace FIAP.FaseUm.TechChallenge.Api.Tests
         {
             builder.ConfigureServices(services =>
             {
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TechChallengeFaseUmDbContext>));
+                var dbContextDescriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<TechChallengeFaseUmDbContext>));
                 
-                if (descriptor is not null)
+                if (dbContextDescriptor is not null)
+                    services.Remove(dbContextDescriptor);
+                
+                var massTransitDescriptors = services
+                    .Where(d => d.ServiceType.Namespace != null && d.ServiceType.Namespace.Contains("MassTransit"))
+                    .ToList();
+
+                foreach (var descriptor in massTransitDescriptors)
                     services.Remove(descriptor);
+                
+                services.AddMassTransit(x =>
+                {
+                    x.UsingInMemory((context, cfg) =>
+                    {
+                        cfg.ConfigureEndpoints(context);
+                    });
+                });
 
                 services.AddDbContext<TechChallengeFaseUmDbContext>(options => options.UseInMemoryDatabase("InMemoryDbForTesting"));
             });
