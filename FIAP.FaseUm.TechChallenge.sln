@@ -58,6 +58,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP.FaseUm.TechChallenge.Worker", "src\FIAP.FaseUm.TechChallenge.Worker\FIAP.FaseUm.TechChallenge.Worker.csproj", "{EA274B58-E2B4-4B60-BE19-D33384EA2E43}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pods", "pods", "{43668690-6721-4138-AD71-ADF9AB1F3493}"
+	ProjectSection(SolutionItems) = preProject
+		configmap.yaml = configmap.yaml
+		sqlserver-pvc.yaml = sqlserver-pvc.yaml
+		prometheus-pvc.yaml = prometheus-pvc.yaml
+		grafana-datasource.yaml = grafana-datasource.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{5E84A2AF-0B4C-41E1-98BE-BA0FCEB83585}"
+	ProjectSection(SolutionItems) = preProject
+		deployment-grafana.yaml = deployment-grafana.yaml
+		deployment-prometheus.yaml = deployment-prometheus.yaml
+		deployment-rabbitmq.yaml = deployment-rabbitmq.yaml
+		deployment-sql.yaml = deployment-sql.yaml
+		deployment-worker.yaml = deployment-worker.yaml
+		deployment-api.yaml = deployment-api.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{8A3ED355-A062-4D4B-B4C2-7A48BA1060A4}"
+	ProjectSection(SolutionItems) = preProject
+		service-api.yaml = service-api.yaml
+		service-grafana.yaml = service-grafana.yaml
+		service-prometheus.yaml = service-prometheus.yaml
+		service-rabbitmq.yaml = service-rabbitmq.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +168,8 @@ Global
 		{A2E44942-4474-4B96-A3F9-02DEDF01CDA7} = {DCA659E7-64A0-47A1-BD5F-6FAA7A08445A}
 		{9A4E1A18-D510-4CF9-BD87-79D2B45CF023} = {A79FE4E2-74B1-4F5D-8EA0-EDFA05F92386}
 		{EA274B58-E2B4-4B60-BE19-D33384EA2E43} = {B24CE7B5-EA83-4826-BA9D-7CF4862C6AAA}
+		{5E84A2AF-0B4C-41E1-98BE-BA0FCEB83585} = {43668690-6721-4138-AD71-ADF9AB1F3493}
+		{8A3ED355-A062-4D4B-B4C2-7A48BA1060A4} = {43668690-6721-4138-AD71-ADF9AB1F3493}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EEC60765-1A3F-4DD7-B75D-B85FA7EED3F7}

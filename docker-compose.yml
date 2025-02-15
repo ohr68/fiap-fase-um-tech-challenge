@@ -19,7 +19,7 @@ services:
     image: fiap.faseum.techchallenge.worker
     build:
       context: .
-      dockerfile: FIAP.FaseUm.TechChallenge.Worker/Dockerfile
+      dockerfile: src/FIAP.FaseUm.TechChallenge.Worker/Dockerfile
     depends_on:
       rabbitmq:
         condition: service_healthy

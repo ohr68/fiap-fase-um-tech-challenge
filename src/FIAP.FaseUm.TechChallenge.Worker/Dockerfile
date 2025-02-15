@@ -5,13 +5,13 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FIAP.FaseUm.TechChallenge.Worker/FIAP.FaseUm.TechChallenge.Worker.csproj", "FIAP.FaseUm.TechChallenge.Worker/"]
+COPY ["src/FIAP.FaseUm.TechChallenge.Worker/FIAP.FaseUm.TechChallenge.Worker.csproj", "src/FIAP.FaseUm.TechChallenge.Worker/"]
 COPY ["src/FIAP.FaseUm.TechChallenge.Domain/FIAP.FaseUm.TechChallenge.Domain.csproj", "src/FIAP.FaseUm.TechChallenge.Domain/"]
 COPY ["src/FIAP.FaseUm.TechChallenge.Custom.Exceptions/FIAP.FaseUm.TechChallenge.Custom.Exceptions.csproj", "src/FIAP.FaseUm.TechChallenge.Custom.Exceptions/"]
 COPY ["src/FIAP.FaseUm.TechChallenge.Infra.Data/FIAP.FaseUm.TechChallenge.Infra.Data.csproj", "src/FIAP.FaseUm.TechChallenge.Infra.Data/"]
-RUN dotnet restore "FIAP.FaseUm.TechChallenge.Worker/FIAP.FaseUm.TechChallenge.Worker.csproj"
+RUN dotnet restore "src/FIAP.FaseUm.TechChallenge.Worker/FIAP.FaseUm.TechChallenge.Worker.csproj"
 COPY . .
-WORKDIR "/src/FIAP.FaseUm.TechChallenge.Worker"
+WORKDIR "/src/src/FIAP.FaseUm.TechChallenge.Worker"
 RUN dotnet build "FIAP.FaseUm.TechChallenge.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
