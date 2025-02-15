@@ -1,0 +1,23 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-fiap
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-fiap
+  template:
+    metadata:
+      labels:
+        app: api-fiap
+    spec:
+      containers:
+        - name: api-fiap
+          image: gahantognoli/fiap.faseum.techchallenge.api
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: fiap-config
+          

@@ -1,0 +1,20 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-fiap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker-fiap
+  template:
+    metadata:
+      labels:
+        app: worker-fiap
+    spec:
+      containers:
+        - name: worker-fiap
+          image: gahantognoli/fiap.faseum.techchallenge.worker
+          envFrom:
+            - configMapRef:
+                name: fiap-config

@@ -1,0 +1,28 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fiap-config
+data:
+  # SQL Server
+  ACCEPT_EULA: "Y"
+  SA_PASSWORD: "Senha@123"
+  
+  # RabbitMQ
+  RABBITMQ_DEFAULT_USER: "guest"
+  RABBITMQ_DEFAULT_PASS: "guest"
+  
+  # API Configuration
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ConnectionStrings__TechChallengeFaseUm: "Server=sql-server-service,1433;initial catalog=fiapfaseum;User=sa;Password=Senha@123;trusted_connection=false;TrustServerCertificate=True"
+  MassTransit__Host: "rabbitmq-service"
+  MassTransit__User: "guest"
+  MassTransit__Password: "guest"
+
+  prometheus.yml: |
+    global:
+      scrape_interval: 5s  # Interval to scrape targets
+    
+    scrape_configs:
+      - job_name: 'webapp'
+        static_configs:
+          - targets: ['api-fiap-service.default.svc.cluster.local:8080']

@@ -1,0 +1,39 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  fiap.faseum.techchallenge.api:
+    build:
+      context: "E:\\Code\\fiap-fase-um-tech-challenge"
+      dockerfile: "src/FIAP.FaseUm.TechChallenge.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/FIAP.FaseUm.TechChallenge.Api.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "fiapfaseumtechchallengeapi:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\gabri\\.nuget\\packages:/home/app/.nuget/packages"
+    - "E:\\Code\\fiap-fase-um-tech-challenge\\src\\FIAP.FaseUm.TechChallenge.Api:/app:rw"
+    - "E:\\Code\\fiap-fase-um-tech-challenge:/src:rw"
+    working_dir: "/app"
+  fiap.faseum.techchallenge.worker:
+    build:
+      context: "E:\\Code\\fiap-fase-um-tech-challenge"
+      dockerfile: "src/FIAP.FaseUm.TechChallenge.Worker/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/FIAP.FaseUm.TechChallenge.Worker.dll"
+    environment:
+      DOTNET_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "fiap.faseum.techchallenge.worker:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\gabri\\.nuget\\packages:/home/app/.nuget/packages"
+    - "E:\\Code\\fiap-fase-um-tech-challenge\\src\\FIAP.FaseUm.TechChallenge.Worker:/app:rw"
+    - "E:\\Code\\fiap-fase-um-tech-challenge:/src:rw"
+    working_dir: "/app"
